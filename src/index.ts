@@ -1,12 +1,8 @@
 import express from "express";
 import router from "./router";
-import connectDB from "./loader/db";
 import config from "./config";
 
 const app = express();
-
-// Connect Database
-connectDB();
 
 app.use(express.urlencoded());
 app.use(express.json());
