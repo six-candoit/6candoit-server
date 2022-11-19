@@ -1,13 +1,13 @@
-import express from "express";
+// import express from "express";
 
-// Middleware
-import { authMiddleware } from "../middlewares";
+// // Middleware
+// import { authMiddleware } from "../middlewares";
 
-// // Controller
-import { auth } from "../controller/auth";
+//  // Controller
+// import { auth } from "../controller/auth";/
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get("/email", authMiddleware, auth.getEmailController);
+// router.get("/email", authMiddleware, auth.getEmailController);
 
-module.exports = router;
+// module.exports = router;
