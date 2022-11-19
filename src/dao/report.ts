@@ -27,10 +27,21 @@ const findReportByUserId = async (userId:number) => {
     return data;
 }
 
+const deleteByReportId = async (reportId:number) => {
+    const data = await prisma.report.delete({
+        where: {
+            id: reportId
+        }
+    })
+    return data;
+}
+
 
 const reportDao = {
     createReport,
-    findReportByUserId
+    findReportByUserId,
+    deleteByReportId
+    
 }
 
 export default reportDao;

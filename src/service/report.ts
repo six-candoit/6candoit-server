@@ -1,6 +1,7 @@
 import { ReportCreateDTO } from './../interface/IReport';
 import { reportDAO } from "../dao";
 import { sc } from '../constants';
+import { report } from 'process';
 
 const writePoint = async (reportRequestDTO: ReportCreateDTO) => {
     const reportResponse = await reportDAO.createReport(reportRequestDTO);
@@ -20,7 +21,14 @@ const finishReport = async (userId:number) => {
         return sc.BAD_REQUEST;
     }
 
-    return reportData;
+    const reportId = reportData.id;
+
+    const data = await reportDAO.deleteByReportId(reportId);
+
+    if (!data) {
+        return sc.BAD_REQUEST;
+    }
+    return data;
 }
 
 const reportService = {
