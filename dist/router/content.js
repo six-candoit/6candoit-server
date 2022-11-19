@@ -11,6 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 // Controller
+// Library
+const constants_1 = require("../constants");
+const response_1 = require("./../constants/response");
 const dummyData = {
     Good: [
         {
@@ -126,14 +129,20 @@ router.get("", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         for (let i = 0; i < dummyData.Good.length; i++) {
             data.push(dummyData.Good[i].content);
         }
-        return res.status(200).json(data);
+        const resData = {
+            contentList: data,
+        };
+        return res.status(constants_1.sc.OK).send((0, response_1.success)(constants_1.sc.OK, "성공", resData));
     }
     if (Number(type) == 0) {
         let data = Array();
         for (let i = 0; i < dummyData.Bad.length; i++) {
             data.push(dummyData.Bad[i].content);
         }
-        return res.status(200).json(data);
+        const resData = {
+            contentList: data,
+        };
+        return res.status(constants_1.sc.OK).send((0, response_1.success)(constants_1.sc.OK, "성공", resData));
     }
 }));
 module.exports = router;

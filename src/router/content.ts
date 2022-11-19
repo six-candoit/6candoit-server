@@ -4,6 +4,10 @@ import { authMiddleware } from "../middlewares";
 import { Request, Response } from "express";
 // Controller
 
+// Library
+import { rm, sc } from "../constants";
+import { fail, success } from "./../constants/response";
+
 const dummyData = {
   Good: [
     {
@@ -124,14 +128,21 @@ router.get("", async (req: Request, res: Response) => {
     for (let i = 0; i < dummyData.Good.length; i++) {
       data.push(dummyData.Good[i].content);
     }
-    return res.status(200).json(data);
+
+    const resData = {
+      contentList: data,
+    };
+    return res.status(sc.OK).send(success(sc.OK, "성공", resData));
   }
   if (Number(type) == 0) {
     let data = Array();
     for (let i = 0; i < dummyData.Bad.length; i++) {
       data.push(dummyData.Bad[i].content);
     }
-    return res.status(200).json(data);
+    const resData = {
+      contentList: data,
+    };
+    return res.status(sc.OK).send(success(sc.OK, "성공", resData));
   }
 });
 
