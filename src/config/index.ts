@@ -15,11 +15,11 @@ export default {
   port: parseInt(process.env.PORT, 10),
 
   // postgreSQL 주소
-  postgresURI: process.env.USER_ID,
+  postgresURI: process.env.DATABASE_URL,
 
   // 기본설정값
   defaultValue: {
-    userId: process.env.DEFAULT_USER_ID,
+    userId: process.env.USER_ID,
   },
 
   // jwt 관련

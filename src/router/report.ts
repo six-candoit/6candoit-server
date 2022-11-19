@@ -1,5 +1,13 @@
 import { Router } from "express";
 
-const router: Router = Router();
+// Middleware
+import { authMiddleware } from "../middlewares";
 
-router.post()
+// Controller
+import { reportController } from "../controller";
+
+const router: Router = Router();
+router.get("/", authMiddleware, reportController.getActiveReport);
+router.get("/all", authMiddleware, reportController.getActiveReport);
+
+module.exports = router;
