@@ -1,3 +1,4 @@
+
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 
@@ -7,6 +8,7 @@ import { reportService } from "../service";
 
 // DTO
 import { IUserDTO } from "../interface/IUser";
+import { ReportCreateDTO } from './../interface/IReport';
 
 // Library
 import { rm, sc } from "../constants";
@@ -122,9 +124,48 @@ const getExReportAll = async (req: Request, res: Response) => {
   return res.status(sc.OK).send(success(sc.OK, rm.READ_USER_SUCCESS, data));
 };
 
+
+const writePoint = async (req:Request, res:Response, next:NextFunction) => {
+    const error = validationResult(req);
+
+    if (!error.isEmpty()) {
+      return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
+    }
+
+    const reportCreateDTO:ReportCreateDTO = req.body;
+
+    const data = await reportService.writePoint(reportCreateDTO);
+
+    if(!data) {
+        return res.status(sc.BAD_REQUEST).send(fail(sc.OK, rm.BAD_REQUEST));
+    }
+
+    return res.status(sc.OK).send(success(sc.OK, rm.REPORT_CREATE_SUCCESS));
+};
+
+const finishReport = async (req:Request, res:Response) => {
+    const error = validationResult(req);
+
+    if (!error.isEmpty()) {
+      return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
+    }
+
+    const { userId } = req.body;
+
+    const data = reportService.finishReport(Number(userId));
+
+    if (!data) {
+        return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
+    }
+
+    return res.status(sc.OK).send(success(sc.OK, rm.REPORT_FINISH_SUCCESS));
+} 
+
 const reportController = {
   getActiveReport,
   getExReportAll,
+    writePoint,
+    finishReport
 };
 
 export default reportController;

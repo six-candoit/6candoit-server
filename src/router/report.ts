@@ -4,10 +4,14 @@ import { Router } from "express";
 import { authMiddleware } from "../middlewares";
 
 // Controller
+
 import { reportController } from "../controller";
 
 const router: Router = Router();
 router.get("/", authMiddleware, reportController.getActiveReport);
 router.get("/all", authMiddleware, reportController.getActiveReport);
+router.post('/', reportController.writePoint);
+router.post('/end', reportController.finishReport);
 
 module.exports = router;
+

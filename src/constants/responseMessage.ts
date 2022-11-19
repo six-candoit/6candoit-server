@@ -4,6 +4,11 @@ export default {
   NOT_FOUND: "잘못된 경로입니다.",
   BAD_REQUEST: "잘못된 요청입니다.",
 
+
+   // 회고 관련
+   REPORT_CREATE_SUCCESS: "새로운 점수 기록 성공",
+   REPORT_FINISH_SUCCESS: "리포트 종료 성공",
+   
   // 회원가입 및 로그인
   SIGNUP_SUCCESS: "회원 가입 성공",
   SIGNUP_FAIL: "회원 가입 실패",
@@ -11,6 +16,7 @@ export default {
   SIGNIN_FAIL: "로그인 실패",
   ALREADY_NICKNAME: "이미 사용중인 닉네임입니다.",
   INVALID_PASSWORD: "잘못된 비밀번호입니다.",
+
 
   // 유저
   READ_USER_SUCCESS: "유저 조회 성공",
