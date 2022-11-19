@@ -9,3 +9,10 @@ export interface IReportDTO {
   updatedAt: Date;
   isDeleted: boolean;
 }
+
+export interface ReportCreateDTO {
+  exId: number;
+  exName: string;
+  content: string;
+  point: number;
+}

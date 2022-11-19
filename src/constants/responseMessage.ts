@@ -31,6 +31,9 @@ export default {
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: "서버 내 오류",
 
+    //
+    REPORT_CREATE_SUCCESS: "새로운 점수 기록 성공",
+"
 
     
   };
