@@ -33,6 +33,7 @@ export default {
 
     //
     REPORT_CREATE_SUCCESS: "새로운 점수 기록 성공",
+    REPORT_FINISH_SUCCESS
 "
 
     

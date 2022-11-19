@@ -1,10 +1,6 @@
 import { IReportDTO, ReportCreateDTO } from './../interface/IReport';
 
-
-// import bcrypt from 'bcryptjs';
 import { PrismaClient } from "@prisma/client";
-// import { UserSignInDto } from '../interfaces/UserSignInDto';
-// import { sc } from '../constants';
 
 const prisma = new PrismaClient();
 
@@ -21,23 +17,10 @@ const createReport = async (reportCreateDTO:ReportCreateDTO) => {
     return returnReportDTO;
 }
 
-const findReportByUserId = async (userId) => {
-    const data = await prisma.user_report.findFirst({
-        where:{
-            user_id: userId
-        },
-        orderBy:{
-            created_at: 'asc'
-        }
-    });
-    
-    return data;
-}
-
-const findReportById = async (reportId) => {
+const findReportByUserId = async (userId:number) => {
     const data = await prisma.report.findFirst({
         where: {
-            id: reportId
+            user_id: userId
         } 
     })
     return data;
@@ -46,8 +29,7 @@ const findReportById = async (reportId) => {
 
 const reportDao = {
     createReport,
-    findReportByUserId,
-    findReportById
+    findReportByUserId
 }
 
 export default reportDao;
