@@ -92,19 +92,19 @@ const getExReportAll = async (req: Request, res: Response) => {
 
   let reportList = Array();
 
-  await Promise.all(
-    reports.map(async (report) => {
-      let total = 100;
+  // await Promise.all(
+  //   reports.map(async (report) => {
+  //     let total = 100;
 
-      if (report.ex_id !== userReport.report_id) {
-        total += report.point;
+  //     if (report.ex_id !== userReport.report_id) {
+  //       total += report.point;
 
-        if (!reportList[report.ex_id].currentName) reportList[report.ex_id].currentName = report.ex_name;
+  //       if (!reportList[report.ex_id].currentName) reportList[report.ex_id].currentName = report.ex_name;
 
-        reportList[report.ex_id].total += report.point;
-      }
-    })
-  );
+  //       reportList[report.ex_id].total += report.point;
+  //     }
+  //   })
+  // );
 
   const data = {
     userId,

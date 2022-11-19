@@ -12,22 +12,22 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     let userId = config.defaultValue.userId;
-    if (token !== "-1") {
-      const decoded = jwtHandler.verify(token); //? jwtHandler에서 만들어둔 verify로 토큰 검사
+    // if (token !== "-1") {
+    //   const decoded = jwtHandler.verify(token); //? jwtHandler에서 만들어둔 verify로 토큰 검사
 
-      //? 토큰 에러 분기 처리
-      if (decoded === tokenType.TOKEN_EXPIRED)
-        return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.EXPIRED_TOKEN));
-      if (decoded === tokenType.TOKEN_INVALID)
-        return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.INVALID_TOKEN));
+    //   //? 토큰 에러 분기 처리
+    //   if (decoded === tokenType.TOKEN_EXPIRED)
+    //     return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.EXPIRED_TOKEN));
+    //   if (decoded === tokenType.TOKEN_INVALID)
+    //     return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.INVALID_TOKEN));
 
-      //? decode한 후 담겨있는 userId를 꺼내옴
-      userId = (decoded as JwtPayload).userId;
-      if (!userId) return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.INVALID_TOKEN));
-    }
+    //   //? decode한 후 담겨있는 userId를 꺼내옴
+    //   userId = (decoded as JwtPayload).userId;
+    //   if (!userId) return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.INVALID_TOKEN));
+    // }
 
     //? 얻어낸 userId 를 Request Body 내 userId 필드에 담고, 다음 미들웨어로 넘김( next() )
-    req.body.userId = userId;
+    req.body.userId = +userId;
     next();
   } catch (error) {
     console.log(error);
