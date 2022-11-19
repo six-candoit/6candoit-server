@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,35 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model report {
+  id              Int      @id(map: "report_pk") @unique(map: "report_id_uindex") @default(autoincrement())
+  ex_id           Int
+  content         String   @db.VarChar
+  point           Int      @default(0)
+  ex_name         String   @db.Char(100)
+  current_percent Int
+  created_at      DateTime @default(now()) @db.Date
+  updated_at      DateTime @default(now()) @db.Date
+  is_deleted      Boolean  @default(false)
+}
+
+model user {
+  id         Int      @id(map: "user_pk") @unique(map: "user_id_uindex") @default(autoincrement())
+  email      String   @unique(map: "user_email_uindex") @db.Char(200)
+  password   String   @db.VarChar
+  nickname   String   @db.Char(100)
+  created_at DateTime @default(now()) @db.Date
+  updated_at DateTime @default(now()) @db.Date
+  is_deleted Boolean? @default(false)
+}
+
+model user_report {
+  id         Int      @id(map: "user_report_pk") @unique(map: "user_report_id_uindex") @default(autoincrement())
+  report_id  Int
+  user_id    Int
+  created_at DateTime @default(now()) @db.Date
+  updated_at DateTime @default(now()) @db.Date
+  is_active  Boolean  @default(false)
 }
