@@ -8,11 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = __importDefault(require("../config"));
 const constants_1 = require("../constants");
 const response_1 = require("../constants/response");
 exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -21,7 +17,7 @@ exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function
     if (!token)
         return res.status(constants_1.sc.UNAUTHORIZED).send((0, response_1.fail)(constants_1.sc.UNAUTHORIZED, constants_1.rm.EMPTY_TOKEN));
     try {
-        let userId = config_1.default.defaultValue.userId;
+        let userId = 1;
         // if (token !== "-1") {
         //   const decoded = jwtHandler.verify(token); //? jwtHandler에서 만들어둔 verify로 토큰 검사
         //   //? 토큰 에러 분기 처리
@@ -34,7 +30,7 @@ exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         //   if (!userId) return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.INVALID_TOKEN));
         // }
         //? 얻어낸 userId 를 Request Body 내 userId 필드에 담고, 다음 미들웨어로 넘김( next() )
-        req.body.userId = +userId;
+        req.body.userId = userId;
         next();
     }
     catch (error) {

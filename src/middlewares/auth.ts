@@ -11,7 +11,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   if (!token) return res.status(sc.UNAUTHORIZED).send(fail(sc.UNAUTHORIZED, rm.EMPTY_TOKEN));
 
   try {
-    let userId = config.defaultValue.userId;
+    let userId = 1;
     // if (token !== "-1") {
     //   const decoded = jwtHandler.verify(token); //? jwtHandler에서 만들어둔 verify로 토큰 검사
 
@@ -27,7 +27,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     // }
 
     //? 얻어낸 userId 를 Request Body 내 userId 필드에 담고, 다음 미들웨어로 넘김( next() )
-    req.body.userId = +userId;
+    req.body.userId = userId;
     next();
   } catch (error) {
     console.log(error);
