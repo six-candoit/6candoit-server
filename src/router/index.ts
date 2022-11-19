@@ -1,6 +1,7 @@
-import express, { Request, Response } from "express";
-import { success, fail } from "../constants/response";
+import express from "express";
 
 const router = express.Router();
+
+router.use("/auth", require("./auth"));
 
 export default router;
