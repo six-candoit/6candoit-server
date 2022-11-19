@@ -17,7 +17,7 @@ import { userReportDAO } from "../dao";
 const getActiveReport = async (req: Request, res: Response) => {
   const { userId } = req.body;
 
-  const user: IUserDTO = await userService.getUser(+userId);
+  const user = await userService.getUser(+userId);
 
   // check request
   if (!userId) {
@@ -72,7 +72,7 @@ const getActiveReport = async (req: Request, res: Response) => {
 const getExReportAll = async (req: Request, res: Response) => {
   const { userId } = req.body;
 
-  const user: IUserDTO = await userService.getUser(+userId);
+  const user = await userService.getUser(+userId);
 
   // check request
   if (!userId) {

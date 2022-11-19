@@ -6,7 +6,7 @@ import { IUserDTO } from "../interface/IUser";
 const prisma = new PrismaClient();
 
 const getUserById = async (userId: number) => {
-  const user: IUserDTO = await prisma.user.findFirst({
+  const user = await prisma.user.findFirst({
     where: {
       id: userId,
       is_deleted: false,

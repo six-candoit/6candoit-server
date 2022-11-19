@@ -18,7 +18,7 @@ const getUser = async (req: Request, res: Response) => {
     return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
   }
 
-  const user: IUserDTO = await userService.getUser(+userId);
+  const user = await userService.getUser(+userId);
 
   // get report
   const activeReports = await reportService.getActiveReport(userId);
