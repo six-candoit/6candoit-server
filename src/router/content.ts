@@ -120,12 +120,18 @@ const router: Router = Router();
 router.get("", async (req: Request, res: Response) => {
   const { type } = req.query;
   if (Number(type) == 1) {
-    const data = dummyData;
-    return res.status(200).json(data.Good);
+    let data = Array();
+    for (let i = 0; i < dummyData.Good.length; i++) {
+      data.push(dummyData.Good[i].content);
+    }
+    return res.status(200).json(data);
   }
   if (Number(type) == 0) {
-    const data = dummyData;
-    return res.status(200).json(data.Bad);
+    let data = Array();
+    for (let i = 0; i < dummyData.Bad.length; i++) {
+      data.push(dummyData.Bad[i].content);
+    }
+    return res.status(200).json(data);
   }
 });
 
