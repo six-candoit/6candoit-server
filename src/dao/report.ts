@@ -11,7 +11,8 @@ const createReport = async (reportCreateDTO:ReportCreateDTO) => {
             content: reportCreateDTO.content,
             point: reportCreateDTO.point,
             ex_name: reportCreateDTO.exName,
-            current_percent: 0
+            current_percent: 0,
+            user_id: reportCreateDTO.userId
         }
     })
     return returnReportDTO;

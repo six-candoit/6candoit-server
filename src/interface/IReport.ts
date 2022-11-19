@@ -15,4 +15,5 @@ export interface ReportCreateDTO {
   exName: string;
   content: string;
   point: number;
+  userId: number;
 }
