@@ -27,9 +27,9 @@ const getUserReportByUserId = async (userId: number) => {
   return userReport;
 };
 
-const userReportDAO = {
+const userReport = {
   getActiveUserReportByUserId,
   getUserReportByUserId,
 };
 
-export default userReportDAO;
+export default userReport;

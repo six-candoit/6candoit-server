@@ -1,4 +1,3 @@
-
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 
@@ -8,7 +7,7 @@ import { reportService } from "../service";
 
 // DTO
 import { IUserDTO } from "../interface/IUser";
-import { ReportCreateDTO } from './../interface/IReport';
+import { ReportCreateDTO } from "./../interface/IReport";
 
 // Library
 import { rm, sc } from "../constants";
@@ -95,22 +94,14 @@ const getExReportAll = async (req: Request, res: Response) => {
 
   await Promise.all(
     reports.map(async (report) => {
-      let currentName = null;
       let total = 100;
-      const history = Array();
 
       if (report.ex_id !== userReport.report_id) {
-        total += activeReport.point;
+        total += report.point;
 
-        if (!currentName) currentName = activeReport.ex_name;
+        if (!reportList[report.ex_id].currentName) reportList[report.ex_id].currentName = report.ex_name;
 
-        const eachHistory = {
-          content: activeReport.content,
-          point: activeReport.point,
-          currentPercent: activeReport.current_percent,
-        };
-
-        history.push(eachHistory);
+        reportList[report.ex_id].total += report.point;
       }
     })
   );
@@ -124,48 +115,47 @@ const getExReportAll = async (req: Request, res: Response) => {
   return res.status(sc.OK).send(success(sc.OK, rm.READ_USER_SUCCESS, data));
 };
 
+const writePoint = async (req: Request, res: Response, next) => {
+  const error = validationResult(req);
 
-const writePoint = async (req:Request, res:Response, next:NextFunction) => {
-    const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
+  }
 
-    if (!error.isEmpty()) {
-      return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
-    }
+  const reportCreateDTO: ReportCreateDTO = req.body;
 
-    const reportCreateDTO:ReportCreateDTO = req.body;
+  const data = await reportService.writePoint(reportCreateDTO);
 
-    const data = await reportService.writePoint(reportCreateDTO);
+  if (!data) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.OK, rm.BAD_REQUEST));
+  }
 
-    if(!data) {
-        return res.status(sc.BAD_REQUEST).send(fail(sc.OK, rm.BAD_REQUEST));
-    }
-
-    return res.status(sc.OK).send(success(sc.OK, rm.REPORT_CREATE_SUCCESS));
+  return res.status(sc.OK).send(success(sc.OK, rm.REPORT_CREATE_SUCCESS));
 };
 
-const finishReport = async (req:Request, res:Response) => {
-    const error = validationResult(req);
+const finishReport = async (req: Request, res: Response) => {
+  const error = validationResult(req);
 
-    if (!error.isEmpty()) {
-      return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
-    }
+  if (!error.isEmpty()) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
+  }
 
-    const { userId } = req.body;
+  const { userId } = req.body;
 
-    const data = reportService.finishReport(Number(userId));
+  const data = reportService.finishReport(Number(userId));
 
-    if (!data) {
-        return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
-    }
+  if (!data) {
+    return res.status(sc.BAD_REQUEST).send(fail(sc.BAD_REQUEST, rm.BAD_REQUEST));
+  }
 
-    return res.status(sc.OK).send(success(sc.OK, rm.REPORT_FINISH_SUCCESS));
-} 
+  return res.status(sc.OK).send(success(sc.OK, rm.REPORT_FINISH_SUCCESS));
+};
 
 const reportController = {
   getActiveReport,
   getExReportAll,
-    writePoint,
-    finishReport
+  writePoint,
+  finishReport,
 };
 
 export default reportController;
